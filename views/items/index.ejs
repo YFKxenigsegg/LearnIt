@@ -15,7 +15,7 @@
   <div class="item-row">
     <div class="item-name"><%= item.name %></div>
     <div class="btn-row">
-      <a class="btn btn-primary" href="/items/<%= item.id %>">View</a>
+      <a class="btn btn-primary" href="/items/<%= item.id %>">Show</a>
       <a class="btn btn-primary" href="/items/<%= item.id %>/edit">Edit</a>
       <%- include('../partials/deleteForm',
                   { url: `/items/${item.id}` }) %>

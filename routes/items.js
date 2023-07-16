@@ -26,6 +26,7 @@ router.get('/new', (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const item = await Item.findById(req.params.id)
+        res.render('items/show', { item: item })
     } catch (error) {
         res.redirect('/')        
     }
@@ -84,8 +85,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     let item
     try {
-        item = await Item.find(req.params.id)
-        await item.remove()
+        item = await Item.findById(req.params.id)
+        await item.deleteOne()
         res.redirect('/items')
     } catch (error) {
         if (item == null) {

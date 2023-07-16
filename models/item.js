@@ -20,7 +20,12 @@ const itemSchema = new mongoose.Schema({
     tags: {
         type: [String],
         required: false
-    }
+    },
+    // createdAt: {
+    //   type: Date,
+    //   required: true,
+    //   default: Date.now
+    // }
 })
 
 module.exports = mongoose.model('Item', itemSchema)

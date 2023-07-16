@@ -23,22 +23,76 @@ router.get('/new', (req, res) => {
     res.render('items/new', { item: new Item() })
 })
 
+router.get('/:id', async (req, res) => {
+    try {
+        const item = await Item.findById(req.params.id)
+    } catch (error) {
+        res.redirect('/')        
+    }
+})
+
+router.get('/:id/edit', async (req, res) => {
+    try {
+        const item = await Item.findById(req.params.id)
+        res.render('items/edit', { item: item })
+    } catch (error) {
+        res.redirect('/items')
+    }
+})
+
 router.post('/', async (req, res) => {
     const item = new Item({
         name: req.body.name,
         siteUrl: req.body.siteUrl,
         githubUrl: req.body.githubUrl,
         youtubeUrl: req.body.youtubeUrl,
-        tags: req.body.tags
+        // tags: req.body.tags
     })
     try {
         const newItem = await item.save()
-        // res.redirect(`items/${newItem.id}`)
+        res.redirect(`items/${newItem.id}`)
     } catch (error) {
         res.render('items/new', {
             item: item,
             errorMessage: 'Error creating Item'
         })
+    }
+})
+
+router.put('/:id', async (req, res) => {
+    let item
+    try {
+        item = await Item.findById(req.params.id)
+        item.name = req.body.name
+        item.siteUrl = req.body.siteUrl
+        item.githubUrl = req.body.githubUrl
+        item.youtubeUrl = req.body.youtubeUrl
+        await item.save()
+        res.redirect(`/items/${item.id}`)
+    } catch (error) {
+        if (item == null) {
+            res.redirect('/')
+        } else {
+            res.render('items/edit', {
+                item: item,
+                errorMessage: 'Error updating Item'
+            })
+        }
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    let item
+    try {
+        item = await Item.find(req.params.id)
+        await item.remove()
+        res.redirect('/items')
+    } catch (error) {
+        if (item == null) {
+            res.redirect('/')
+        } else {
+            res.redirect(`/items/${item.id}`)
+        }
     }
 })
 

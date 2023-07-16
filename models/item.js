@@ -21,11 +21,11 @@ const itemSchema = new mongoose.Schema({
         type: [String],
         required: false
     },
-    // createdAt: {
-    //   type: Date,
-    //   required: true,
-    //   default: Date.now
-    // }
+    createdAt: {
+      type: Date,
+      required: true,
+      default: Date.now
+    }
 })
 
 module.exports = mongoose.model('Item', itemSchema)

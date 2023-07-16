@@ -1,4 +1,7 @@
 <h2 class="page-header"><%= item.name %></h2>
+<h2 class="page-header"><%= item.siteUrl %></h2>
+<h2 class="page-header"><%= item.githubUrl %></h2>
+<h2 class="page-header"><%= item.youtubeUrl %></h2>
 <div class="btn-row">
   <a class="btn btn-primary" href="/items/<%= item.id %>/edit">Edit</a>
   <%- include('../partials/deleteForm',

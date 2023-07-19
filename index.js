@@ -52,3 +52,8 @@ app.use('/items', itemsRouter)
 app.use('/auth', authRouter)
 
 app.listen(process.env.PORT || 3000)
+
+process.on('unhandledRejection', err => {
+    console.log(`An error occured: ${err.messaage}`)
+    server
+})

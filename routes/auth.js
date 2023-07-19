@@ -10,7 +10,7 @@ router.get('/login', checkNotAuthenticated, async (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: 'login',
     failureFlash: true
 }))
 
@@ -20,22 +20,20 @@ router.get('/register', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        const passwordHash = await bcrypt.hash(req.body.password, 10)
-        const user = new User({
+        await User.create({
             name: req.body.name,
             email: req.body.email,
-            passwordHash: passwordHash
+            passwordHash: await bcrypt.hash(req.body.password, 10)
         })
-        await user.save()
-        res.redirect('auth/login')
+        res.redirect('login')
     } catch (error) {
-        res.redirect('/register')
+        res.redirect('register')
     }
 })
 
 router.delete('/logout', (req, res) => {
     req.logOut()
-    res.redirect('/login')
+    res.redirect('login')
 })
 
 function checkNotAuthenticated(req, res, next) {

@@ -37,7 +37,7 @@ router.get('/:id/edit', async (req, res) => {
         const item = await Item.findById(req.params.id)
         res.render('items/edit', { item: item })
     } catch (error) {
-        res.redirect('/items')
+        res.redirect('items')
     }
 })
 
@@ -69,7 +69,7 @@ router.put('/:id', async (req, res) => {
         item.githubUrl = req.body.githubUrl
         item.youtubeUrl = req.body.youtubeUrl
         await item.save()
-        res.redirect(`/items/${item.id}`)
+        res.redirect(`items/${item.id}`)
     } catch (error) {
         if (item == null) {
             res.redirect('/')
@@ -87,12 +87,12 @@ router.delete('/:id', async (req, res) => {
     try {
         item = await Item.findById(req.params.id)
         await item.deleteOne()
-        res.redirect('/items')
+        res.redirect('items')
     } catch (error) {
         if (item == null) {
             res.redirect('/')
         } else {
-            res.redirect(`/items/${item.id}`)
+            res.redirect(`items/${item.id}`)
         }
     }
 })

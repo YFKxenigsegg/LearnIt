@@ -22,9 +22,9 @@ const itemSchema = new mongoose.Schema({
         required: false
     },
     createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now
+        type: Date,
+        required: true,
+        default: Date.now
     }
 })
 

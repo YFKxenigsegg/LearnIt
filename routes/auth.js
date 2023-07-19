@@ -8,17 +8,17 @@ router.get('/login', checkNotAuthenticated, async (req, res) => {
     res.render('auth/login')
 })
 
-router.post('/login', passport.authenticate('local', {
+router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: 'login',
     failureFlash: true
 }))
 
-router.get('/register', async (req, res) => {
+router.get('/register', checkNotAuthenticated, async (req, res) => {
     res.render('auth/register')
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         await User.create({
             name: req.body.name,
